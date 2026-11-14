@@ -1,0 +1,18 @@
+{
+ "body": {
+  "nodes": {
+   "6acLZbdP5MOAedzTMCdbQ": {
+    "breakpointOverrides": {},
+    "children": [],
+    "classIds": [],
+    "id": "6acLZbdP5MOAedzTMCdbQ",
+    "moduleId": "base.body",
+    "parentId": null,
+    "props": {}
+   }
+  },
+  "rootNodeId": "6acLZbdP5MOAedzTMCdbQ"
+ },
+ "slug": "index",
+ "title": "Home"
+}

@@ -1,0 +1,104 @@
+{
+ "breakpoints": [
+  {
+   "icon": "smartphone",
+   "id": "mobile",
+   "label": "Mobile",
+   "mediaQuery": "(max-width: 375px)",
+   "width": 375
+  },
+  {
+   "icon": "tablet",
+   "id": "tablet",
+   "label": "Tablet",
+   "mediaQuery": "(max-width: 768px)",
+   "width": 768
+  },
+  {
+   "icon": "monitor",
+   "id": "desktop",
+   "label": "Desktop",
+   "mediaQuery": "(max-width: 1440px)",
+   "width": 1440
+  }
+ ],
+ "createdAt": 1794654188720,
+ "explorer": {
+  "components": {
+   "folders": [],
+   "items": []
+  },
+  "pages": {
+   "emptyFolders": [],
+   "expandedFolders": [],
+   "rowOrder": []
+  },
+  "scripts": {
+   "emptyFolders": [],
+   "expandedFolders": [],
+   "rowOrder": []
+  },
+  "styles": {
+   "emptyFolders": [],
+   "expandedFolders": [],
+   "rowOrder": []
+  },
+  "templates": {
+   "folders": [],
+   "items": []
+  }
+ },
+ "files": [],
+ "id": "default",
+ "name": "chiusureafilo",
+ "packageJson": {
+  "dependencies": {},
+  "devDependencies": {}
+ },
+ "runtime": {
+  "dependencyLock": {
+   "packages": {},
+   "updatedAt": 0,
+   "version": 1
+  },
+  "scripts": {},
+  "styles": {}
+ },
+ "settings": {
+  "fonts": {
+   "items": [],
+   "tokens": [
+    {
+     "createdAt": 1794654188719,
+     "fallback": "system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+     "id": "27UePbHcZyKtiTcudsWt7",
+     "name": "Heading",
+     "order": 0,
+     "updatedAt": 1794654188719,
+     "variable": "font-heading"
+    },
+    {
+     "createdAt": 1794654188719,
+     "fallback": "system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+     "id": "qakoDV_2vFq5zu0adHE96",
+     "name": "Body",
+     "order": 1,
+     "updatedAt": 1794654188719,
+     "variable": "font-body"
+    },
+    {
+     "createdAt": 1794654188719,
+     "fallback": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+     "id": "hqn6HJ-wYiGMKTNrqZaxE",
+     "name": "Mono",
+     "order": 2,
+     "updatedAt": 1794654188719,
+     "variable": "font-mono"
+    }
+   ]
+  },
+  "shortcuts": {}
+ },
+ "styleRules": {},
+ "updatedAt": 1794654188720
+}

@@ -1,0 +1,11 @@
+# Progetto Instatic del cliente "chiusureafilo": solo localhost, dati in questa cartella.
+name: instatic-chiusureafilo
+
+services:
+  app:
+    restart: "no"
+    ports: !override
+      - "127.0.0.1:3005:3001"
+    volumes: !override
+      - /Users/davidefilippini/Documents/prova-instatic/progetti/chiusureafilo/dati/uploads:/app/uploads
+      - /Users/davidefilippini/Documents/prova-instatic/progetti/chiusureafilo/dati/data:/app/data

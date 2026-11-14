@@ -1,0 +1,3 @@
+# database e file caricati: fuori da git, si salvano col backup
+dati/
+.DS_Store
