@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Chiusure A FiLO · Home (anteprima)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+<style>
+/* Layout: griglia svizzera a 12 colonne, sezioni dense in 4/8 con titolo sticky a sinistra,
+   filetti 1px come unica struttura, una sola fascia scura. Look unico (palette Permaline), niente tema scuro. */
+:root{
+  --paper:#FAFAF7; --bone:#F4F3EE; --charcoal:#373A36; --graphite:#595B5E; --mist:#E6E6E3; --accent:#2F6B4A; --accent-light:#79B893; --accent-dark:#235238; --alert:#B3362B; --mint:#EEF3F0; --ease:cubic-bezier(.22,1,.36,1); --ease2:cubic-bezier(.16,1,.3,1); --wait:#ECEAE3; --wait-dark:#2C2F2B; --accent-wash:#E9EFEA; --on-green-line:rgba(250,250,247,.24); --accent-tint:rgba(47,107,74,.04);
+  --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --gap:32px; --head:64px; --measure:31rem;
+  --sp-sec:clamp(72px,9vw,144px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--paper);color:var(--charcoal);font-family:var(--font);font-size:17px;line-height:1.6;font-weight:400}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p,ol,ul,figure,blockquote{margin:0;padding:0}
+ol,ul{list-style:none}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+@media(min-width:900px){.wrap{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
+
+/* tipografia */
+h1{font-size:clamp(2.25rem,1.5rem + 3.4vw,4.25rem);line-height:1.04;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+h2{font-size:clamp(1.75rem,1.4rem + 1.5vw,2.5rem);line-height:1.12;letter-spacing:-.022em;font-weight:500;text-wrap:balance}
+h3{font-size:1.25rem;line-height:1.25;letter-spacing:-.01em;font-weight:600}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:20px}
+.lead{font-size:clamp(1.125rem,1.05rem + .4vw,1.3125rem);line-height:1.5;font-weight:400}
+.muted{color:var(--graphite)}
+.ic{flex:none;width:18px;height:18px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.hi{display:flex;align-items:flex-start;gap:10px}
+.hi .ic{margin-top:3px}
+.num .ic{margin-top:4px}
+.dark .ic{stroke:var(--accent-light)}
+mark{--mk:rgba(47,107,74,.11);background:linear-gradient(var(--mk),var(--mk)) no-repeat left/100% 100%;color:inherit;padding:1px 3px;border-radius:1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+p b{font-weight:600}
+.muted b{color:var(--charcoal)}
+.dark p b{color:var(--paper)}
+.pq b{font-weight:500}
+.cap{font-size:12px;line-height:1.4;letter-spacing:.04em;color:var(--graphite);margin-top:14px;padding-left:12px;border-left:1px solid var(--accent)}
+.proto{font-size:12px;letter-spacing:.04em;color:var(--graphite);border:1px dashed var(--graphite);padding:14px 16px;border-radius:2px}
+
+/* pulsanti: spigoli vivi 2px */
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 24px;border:1px solid var(--charcoal);border-radius:2px;background:var(--charcoal);color:var(--paper);font:inherit;font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+.btn::after{content:"→";font-weight:400;transition:transform .2s}
+.btn:hover::after{transform:translateX(3px)}
+.btn:not(.ghost):not(.light){background:var(--accent);border-color:var(--accent)}
+.btn:not(.ghost):not(.light):hover{background:var(--accent-dark);border-color:var(--accent-dark);color:var(--paper)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--charcoal)}
+.btn.ghost::after,.btn.light::after{color:var(--accent)}
+.btn.ghost:hover::after{color:inherit}
+.btn.light:hover::after{color:var(--accent-light)}
+.btn.ghost:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.btn.light{background:var(--paper);color:var(--charcoal);border-color:var(--paper)}
+.btn.light:hover{background:transparent;color:var(--paper)}
+.tlink{font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--charcoal);padding-bottom:3px}
+.tlink::after{content:" →";color:var(--accent)}
+.tlink:hover{color:var(--accent);border-color:var(--accent)}
+
+/* testata */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--mist)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:var(--head)}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;white-space:nowrap}
+.brand b{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.brand span{font-size:11px;color:var(--graphite);letter-spacing:.04em}
+.nav ul{display:flex;gap:28px}
+.nav a{font-size:14px;text-decoration:none;padding:8px 0}
+.nav a:hover{color:var(--accent)}
+.nav li:last-child a{border-bottom:1px solid var(--charcoal)}
+.menu-btn{display:none;background:none;border:1px solid var(--charcoal);border-radius:2px;font:inherit;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;color:var(--charcoal);cursor:pointer}
+@media(max-width:1080px){
+  .menu-btn{display:block}
+  .nav{position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--mist)}
+  .nav:not(.open){display:none}
+  .nav ul{flex-direction:column;gap:0;padding:4px max(20px,env(safe-area-inset-right,0px)) 16px max(20px,env(safe-area-inset-left,0px))}
+  .nav li+li{border-top:1px solid var(--mist)}
+  .nav a{display:block;padding:14px 0;font-size:16px}
+  .nav li:last-child a{border-bottom:0}
+}
+
+/* hero */
+.hero{padding-block:clamp(56px,8vw,120px) 0}
+.hero-grid{display:grid;gap:40px var(--gap)}
+.hero-copy{display:grid;gap:22px;max-width:36rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+@media(min-width:900px){
+  .hero-grid{grid-template-columns:repeat(12,1fr);align-items:end}
+  .hero-grid h1{grid-column:1/8}
+  .hero-copy{grid-column:8/13}
+}
+.facts{margin-top:clamp(48px,6vw,88px);border-top:1px solid var(--mist);border-bottom:1px solid var(--mist);display:grid;font-size:12px;line-height:1.4;letter-spacing:.03em;color:var(--charcoal)}
+.facts li{padding:14px 0;display:flex;align-items:center;gap:12px}
+.facts svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.facts li+li{border-top:1px solid var(--mist)}
+@media(min-width:640px){.facts{grid-template-columns:repeat(2,1fr);column-gap:var(--gap)}.facts li:nth-child(2){border-top:0}}
+@media(min-width:1080px){
+  .facts{grid-template-columns:repeat(7,1fr);column-gap:0}
+  .facts li{padding:18px 16px 20px;border-top:0!important;flex-direction:column;align-items:flex-start;gap:12px}
+  .facts li+li{border-left:1px solid var(--mist)}
+  .facts li:first-child{padding-left:0}
+}
+.hero-photo{margin-top:clamp(32px,4vw,56px)}
+.hero-photo img{width:100%;aspect-ratio:3/2;object-fit:cover}
+@media(min-width:760px){.hero-photo img{aspect-ratio:1942/809}}
+
+/* sezioni dense 4/8 */
+.sec{padding-block:var(--sp-sec);border-top:1px solid var(--mist)}
+.bone{background:var(--bone)}
+.mint{background:var(--mint)}
+.mint .cap{color:var(--charcoal)}
+.band{padding-block:clamp(40px,5vw,72px);border-top:1px solid var(--mist)}
+.band .pq{border:0;padding-block:clamp(24px,3vw,40px) 0}
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.split{display:grid;gap:36px var(--gap)}
+.side h2+p{margin-top:20px}
+body{counter-reset:sec}
+.side-in::before,.dark-head::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);display:block;width:56px;padding-top:12px;margin-bottom:20px;background:linear-gradient(currentColor,currentColor) no-repeat left top/100% 2px;transition:background-size .6s var(--ease) .15s;font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--accent);font-variant-numeric:tabular-nums}
+.main{display:grid;gap:28px;min-width:0}
+.main>p,.main>.lead{max-width:var(--measure)}
+@media(min-width:900px){
+  .split{grid-template-columns:repeat(12,1fr)}
+  .side{grid-column:1/5}
+  .side-in{position:sticky;top:calc(var(--head) + env(safe-area-inset-top,0px) + 40px)}
+  .main{grid-column:5/13}
+}
+.side.long h2{font-size:clamp(1.5rem,1.2rem + 1vw,2rem);line-height:1.18}
+.full{margin-top:clamp(48px,6vw,88px)}
+
+/* due schede affiancate, solo filetti */
+.pair{display:grid;border-top:1px solid var(--mist);border-bottom:1px solid var(--mist)}
+.pair>div{padding:28px 0;display:grid;gap:12px;align-content:start}
+.pair>div+div{border-top:1px solid var(--mist)}
+@media(min-width:700px){
+  .pair{grid-template-columns:1fr 1fr}
+  .pair>div{padding:32px 32px 36px 0}
+  .pair>div+div{border-top:0;border-left:1px solid var(--mist);padding-left:32px;padding-right:0}
+}
+
+/* liste numerate */
+.num{counter-reset:n;border-top:1px solid var(--mist)}
+.bone .num,.bone .num li{border-color:var(--mist)}
+.num li{counter-increment:n;display:grid;grid-template-columns:28px 30px 1fr;gap:0 8px;padding:22px 0;border-bottom:1px solid var(--mist)}
+.num li::before{content:counter(n,decimal-leading-zero);font-size:12px;letter-spacing:.08em;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;padding-top:5px}
+.num li p{max-width:var(--measure)}
+.num b{font-weight:600}
+.bone .num,.bone .num li,.bone .pair{border-color:#E6E6E3}
+
+/* foto errori */
+.errs{display:grid;gap:28px var(--gap)}
+@media(min-width:700px){.errs{grid-template-columns:repeat(3,1fr)}}
+.err{position:relative}
+.err img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1) contrast(1.08)}
+.err .tag{position:absolute;left:0;top:0;background:var(--alert);color:var(--paper);font-size:11px;font-weight:600;letter-spacing:.16em;padding:9px 12px 8px}
+
+/* fascia scura */
+.dark{background:var(--charcoal);color:var(--paper)}
+.dark .eyebrow,.dark .side-in::before{color:var(--accent-light)}
+.dark .cap{color:rgba(250,250,247,.74);border-color:var(--accent-light)}
+.dark mark{--mk:rgba(121,184,147,.18);color:var(--paper)}
+.dark :focus-visible{outline-color:var(--accent-light)}
+.dark-head{display:grid;gap:16px;max-width:44rem;margin-bottom:clamp(40px,5vw,72px)}
+.dark-head p{color:var(--mist)}
+.tri{display:grid;gap:48px var(--gap)}
+@media(min-width:820px){.tri{grid-template-columns:repeat(3,1fr)}}
+.tri figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.tri .txt{display:grid;gap:10px;padding-top:20px;margin-top:20px;border-top:1px solid var(--accent-light)}
+.dark-head::before{border-color:var(--accent-light);color:var(--accent-light);margin-bottom:8px}
+.tri .txt p{color:var(--mist);font-size:16px}
+.dark .cta{margin-top:clamp(40px,5vw,64px)}
+.dark,.green{border-top:0}
+.green{background:var(--accent);color:var(--paper)}
+.green .side-in::before{border-color:var(--paper);color:var(--paper)}
+.green .pq,.green .who,.green .who>div+div{border-color:var(--on-green-line)}
+.green .pq::before,.green .who>div::before{background:var(--paper)}
+.green .ic{stroke:var(--paper)}
+.green .btn:not(.ghost):not(.light){background:var(--paper);border-color:var(--paper);color:var(--accent)}
+.green .btn:not(.ghost):not(.light):hover{background:var(--accent-wash);border-color:var(--accent-wash);color:var(--accent)}
+.green :focus-visible{outline-color:var(--paper)}
+
+/* foto con didascalia */
+.ph img{width:100%}
+.ph.r32 img{aspect-ratio:3/2;object-fit:cover}
+
+/* tabella a confronto */
+.cmp{border-top:1px solid var(--charcoal)}
+.cmp-head,.cmp-row{display:grid;grid-template-columns:2fr 4fr 6fr;column-gap:var(--gap)}
+.cmp-head{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:16px 0;border-bottom:1px solid var(--mist)}
+.cmp-head .senza{color:var(--graphite)}
+.cmp-head .con{color:var(--accent)}
+.cmp-row{padding:28px 0;border-bottom:1px solid var(--mist);align-items:start}
+.cmp-row h3{font-size:1rem}
+.cmp-row .senza{color:var(--graphite)}
+.cmp-row .con{color:var(--charcoal);border-left:2px solid var(--accent);padding:18px 20px 18px 48px;margin-block:-18px;background:var(--accent-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='%232F6B4A' stroke-width='1.500' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.500 9.500l3.500 3.500 7.500-8'/%3E%3C/svg%3E") no-repeat 18px 22px/18px 18px}
+@media(max-width:820px){
+  .cmp-head{display:none}
+  .cmp-row{grid-template-columns:1fr;row-gap:16px;padding:28px 0 32px}
+  .cmp-row h3{font-size:1.25rem}
+  .cmp-row p::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+  .cmp-row .con::before{color:var(--accent)}
+  .cmp-row .con{margin-block:0;padding:14px 16px 16px 44px;background-position:14px 15px}
+  .cmp-row .senza{padding-left:18px}
+}
+
+/* pull quote: pausa tipografica tra due filetti */
+.pq{border-top:1px solid var(--mist);border-bottom:1px solid var(--mist);padding-block:clamp(48px,7vw,96px)}
+.pq{position:relative}
+.pq::before{content:"";position:absolute;left:0;top:-1px;width:56px;height:2px;background:var(--accent)}
+.pq p{font-size:clamp(1.75rem,1.2rem + 2.4vw,2.5rem);line-height:1.18;letter-spacing:-.02em;font-weight:300;max-width:24em;text-wrap:balance}
+.pq-wrap{padding-block:0;border-top:1px solid var(--mist)}
+.after-pq{padding-top:clamp(32px,4vw,48px)}
+
+/* caroselli */
+.car{margin-top:clamp(56px,7vw,96px);padding-top:28px;border-top:1px solid var(--charcoal)}
+.car-head{display:grid;gap:16px var(--gap);align-items:end;margin-bottom:28px}
+.car-head p{max-width:var(--measure);color:var(--graphite);margin-top:8px}
+.car-ctl{display:flex;align-items:center;gap:18px}
+.car-ctl button{width:44px;height:44px;border:1px solid var(--charcoal);border-radius:2px;background:transparent;color:var(--charcoal);font:inherit;font-size:18px;cursor:pointer;transition:background .2s,color .2s}
+.car-ctl button{line-height:1}
+.car-ctl button:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.car-ctl output{font-size:12px;letter-spacing:.12em;font-variant-numeric:tabular-nums;color:var(--graphite);min-width:5.5em}
+@media(min-width:760px){.car-head{grid-template-columns:1fr auto}}
+.track{display:flex;gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.track>*{flex:0 0 82%;scroll-snap-align:start;min-width:0}
+@media(min-width:700px){.track>*{flex-basis:calc((100% - var(--gap))/2)}}
+@media(min-width:1080px){.track>*{flex-basis:calc((100% - 2*var(--gap))/3)}}
+.zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.zoom img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.riv .zoom img{aspect-ratio:4/5}
+.track.quotes>*{flex-basis:100%}
+@media(min-width:1080px){.track.quotes>*{flex-basis:calc((100% - var(--gap))/2)}}
+.q{display:grid;gap:28px;align-content:space-between;padding:8px 0 4px}
+.q blockquote{font-size:clamp(1.25rem,1.1rem + .7vw,1.625rem);line-height:1.35;font-weight:300;letter-spacing:-.01em;max-width:26em}
+.q footer{display:flex;align-items:center;gap:14px;font-size:14px}
+.q footer img{width:48px;height:48px;object-fit:cover;object-position:50% 20%;filter:grayscale(1);border-radius:2px}
+.q footer b{font-weight:600;display:block}
+.q footer span{color:var(--graphite)}
+
+/* catalogo 3 colonne */
+.cat{display:grid;gap:48px var(--gap)}
+@media(min-width:820px){.cat{grid-template-columns:repeat(3,1fr)}}
+.cat img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.cat .txt{display:grid;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--charcoal)}
+.cat .txt p{font-size:16px}
+
+/* chiusura: 3 colonne con filetti verticali */
+.who{display:grid;border-top:1px solid var(--charcoal);border-bottom:1px solid var(--mist)}
+.who>div{display:grid;grid-template-rows:auto 1fr auto;gap:16px;padding:32px 0 36px}
+.who>div+div{border-top:1px solid var(--mist)}
+.who p{font-size:16px}
+.who .btn{justify-self:start;margin-top:12px}
+.who>div,.res>*{position:relative}
+.who>div::before,.res>a::before{content:"";position:absolute;left:0;top:-1px;width:0;height:2px;background:var(--accent);transition:width .35s ease}
+.who>div:hover::before,.who>div:focus-within::before,.res>a:hover::before,.res>a:focus-visible::before{width:100%}
+.res h3,.res .go{transition:color .2s}
+.zoom img{transition:opacity .25s}
+.zoom:hover img{opacity:.88}
+@media(min-width:900px){
+  .who{grid-template-columns:repeat(3,1fr)}
+  .who>div{padding:36px 32px 40px}
+  .who>div:first-child{padding-left:0}
+  .who>div:last-child{padding-right:0}
+  .who>div+div{border-top:0;border-left:1px solid var(--mist)}
+}
+
+/* risorse */
+.res{display:grid;border-top:1px solid var(--charcoal)}
+.res>*{display:grid;grid-template-rows:auto 1fr auto;gap:14px;padding:28px 0 32px;text-decoration:none;border-bottom:1px solid var(--mist)}
+.res p{font-size:16px;color:var(--graphite)}
+.res .go{font-size:15px;font-weight:500;color:var(--charcoal)}
+.res a .go::after{content:" →";color:var(--accent)}
+.res a:hover h3,.res a:hover .go{color:var(--accent)}
+.res .soon{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--graphite);border:1px solid var(--graphite);border-radius:2px;padding:6px 10px;justify-self:start}
+.res .off h3{color:var(--graphite)}
+.res .off .ic{stroke:var(--graphite)}
+@media(min-width:820px){
+  .res{grid-template-columns:repeat(3,1fr)}
+  .res>*{padding:32px 32px 36px}
+  .res>*:first-child{padding-left:0}
+  .res>*:last-child{padding-right:0}
+  .res>*+*{border-left:1px solid var(--mist)}
+}
+
+/* footer */
+.foot{border-top:1px solid var(--mist);padding-block:clamp(56px,6vw,88px) 40px;font-size:15px}
+.foot-top{display:grid;gap:28px var(--gap)}
+.foot-top .claim{font-size:clamp(1.25rem,1.1rem + .7vw,1.625rem);font-weight:300;line-height:1.3;letter-spacing:-.01em}
+@media(min-width:900px){.foot-top{grid-template-columns:repeat(12,1fr)}.foot-top>div:first-child{grid-column:1/6}.foot-top>div:last-child{grid-column:7/13}}
+.foot-top>div{display:grid;gap:20px;align-content:start;justify-items:start}
+.legal{margin-top:56px;padding-top:20px;border-top:1px solid var(--mist);font-size:12px;line-height:1.7;color:var(--graphite);display:grid;gap:8px}
+.legal a{text-decoration:none;border-bottom:1px solid var(--mist)}
+
+/* lightbox e avviso prototipo */
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(92vw,1100px);max-height:92vh}
+dialog.lb::backdrop{background:rgba(55,58,54,.92)}
+dialog.lb img{max-height:86vh;width:auto;margin-inline:auto}
+dialog.lb button{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));width:44px;height:44px;border:1px solid var(--paper);border-radius:2px;background:transparent;color:var(--paper);font-size:18px;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--charcoal);color:var(--paper);font-size:13px;line-height:1.4;padding:12px 16px;border-radius:2px;max-width:calc(100% - 32px);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+/* v6: reveal, linea di matita, micro-interazioni. Senza JS o con reduced-motion tutto resta visibile. */
+.js-reveal .rv{opacity:0;transform:translateY(14px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.js-reveal .rv.in{opacity:1;transform:none}
+.js-reveal .side-in:not(.in)::before,.js-reveal .dark-head:not(.in)::before{background-size:0 2px}
+.pq::before{transform-origin:left;transition:transform .6s var(--ease) .15s}
+.js-reveal .pq:not(.in)::before{transform:scaleX(0)}
+.zoom,.tri figure,.cat figure,.err,.hero-photo{overflow:hidden}
+.zoom img,.tri figure img,.cat figure img,.err img,.hero-photo img{transition:transform .6s ease}
+.zoom:hover img{opacity:1}
+.zoom:hover img,.tri figure:hover img,.cat figure:hover img,.err:hover img,.hero-photo:hover img{transform:scale(1.03)}
+.cmp-row{transition:background-color .25s}
+.cmp-row:hover{background-color:rgba(47,107,74,.035)}
+/* v8: reveal fotografico a taglio, parallax, evidenziazioni tracciate, micro-interazioni */
+.frame{overflow:hidden}
+/* v9: entrata morbida delle foto, solo quando sono caricate e in vista */
+.hero-photo,.err,.tri figure,.frame,.cat figure,.zoom{background:var(--wait);overflow:hidden}
+.dark .tri figure,.dark .frame{background:var(--wait-dark)}
+.js-img :is(.hero-photo,.err,.tri figure,.frame,.cat figure,.zoom) img{opacity:0;transform:scale(1.04);filter:blur(4px);transition:opacity .75s var(--ease),transform 1s var(--ease),filter .75s ease}
+.js-img :is(.hero-photo,.err,.tri figure,.frame,.cat figure,.zoom) img.is-loaded-visible{opacity:1;transform:scale(1);filter:blur(0)}
+.js-img figure.err img{filter:grayscale(1) contrast(1.08) blur(4px)}
+.js-img figure.err img.is-loaded-visible{filter:grayscale(1) contrast(1.08) blur(0)}
+.js-img :is(.hero-photo,.err,.tri figure,.frame,.cat figure,.zoom):hover img.is-loaded-visible{transform:scale(1.03)}
+.js-img.js-par .par img{transform:scale(1.12)}
+.js-img.js-par .par img.is-loaded-visible{transform:scale(1.08)}
+.js-img.js-par .par:hover img.is-loaded-visible{transform:scale(1.1)}
+.js-reveal mark.mk{background-size:0% 100%;transition:background-size .7s ease .2s}
+.js-reveal mark.mk.in{background-size:100% 100%}
+.cnt{font-variant-numeric:tabular-nums}
+.who>div,.res>a{transition:transform .25s ease}
+.who>div:hover,.res>a:hover{transform:translateY(-2px)}
+.who>div:hover .btn::after{transform:translateX(4px)}
+.res a .go::after{content:"→";display:inline-block;margin-left:.35em;transition:transform .2s}
+.res a:hover .go::after{transform:translateX(4px)}
+.car-ctl button{transition:background .2s,color .2s,transform .12s}
+.car-ctl button:active{transform:scale(.95)}
+@keyframes lbIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@keyframes lbOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.96)}}
+@keyframes lbFade{from{opacity:0}to{opacity:1}}
+@keyframes lbFadeOut{from{opacity:1}to{opacity:0}}
+dialog.lb[open]{animation:lbIn .25s ease}
+dialog.lb[open]::backdrop{animation:lbFade .25s ease}
+dialog.lb.closing{animation:lbOut .25s ease forwards}
+dialog.lb.closing::backdrop{animation:lbFadeOut .25s ease forwards}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.who>div:hover,.res>a:hover,.car-ctl button:active{transform:none}.zoom:hover img,.tri figure:hover img,.cat figure:hover img,.err:hover img,.hero-photo:hover img{transform:none}}
+</style>
+</head>
+<body>
+<script>(function(){try{var d=document.documentElement;if('IntersectionObserver' in window&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){d.classList.add('js-img');setTimeout(function(){if(!window.__imgReady)d.classList.remove('js-img')},3000)}}catch(e){}})();</script>
+<header class="top"><div class="prog" id="prog" aria-hidden="true"></div>
+  <div class="wrap">
+    <a class="brand" href="#inizio"><b>Chiusure A FiLO®</b><span>di COMPASSiN®</span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="nav" id="menu" aria-label="Menu principale">
+      <ul>
+        <li><a href="./cosa-risolvi/" data-go="Cosa risolvi">Cosa risolvi</a></li>
+        <li><a href="./a-filo-lab/" data-go="Metodo, indirizzo /a-filo-lab/">Metodo</a></li>
+        <li><a href="./casi-studio/" data-go="Casi studio">Casi studio</a></li>
+        <li><a href="./blog/" data-go="Blog">Blog</a></li>
+        <li><a href="./faq/" data-go="FAQ">FAQ</a></li>
+        <li><a href="./ambientecontinuo/" data-go="AMBiENTECONTiNUO">AMBiENTECONTiNUO</a></li>
+        <li><a href="./contatti/" data-go="Contatti">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inizio">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <h1>Chiusure A FiLO® progettate da esperti del cantiere a secco</h1>
+      <div class="hero-copy">
+        <p class="lead">Progettiamo e produciamo su misura chiusure filo muro per impianti, spazi residui e passaggi tra ambienti. Per interni ad alta finitura, dove il dettaglio non si negozia.</p>
+        <p class="muted">Il filo muro non è un pezzo da catalogo: è un <b>processo costruttivo</b>. Prima di produrre leggiamo progetto e cantiere. Così il filo muro risolve quello che serve senza complicare il lavoro, e alla fine <b><em>resta solo una linea di matita</em></b>.</p>
+        <div class="hero-cta">
+          <a class="btn" href="./contatti/" data-go="Contatti">Parla con un esperto del cantiere</a>
+          <a class="btn ghost" href="./cosa-risolvi/" data-go="Cosa risolvi">Scopri cosa puoi risolvere</a>
+        </div>
+      </div>
+    </div>
+    <ul class="facts">
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 15.5v-13l13 13z"/><path d="M5.5 12.5v-3.2l3.2 3.2z"/></svg><span>Progettate da chi le posava</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5l6.5 3.2L9 9 2.5 5.7z"/><path d="M2.5 9L9 12.3 15.5 9"/><path d="M2.5 12.3L9 15.5l6.5-3.2"/></svg><span>Dal secco, per il secco</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2.5" y="3.5" width="13" height="12"/><path d="M2.5 7.5h13M6 2v3M12 2v3"/></svg><span><span class="cnt" data-to="25">25</span> anni di cantiere a secco</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="6.5" cy="6" r="2.5"/><path d="M2 15.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5"/><path d="M11.5 3.7a2.5 2.5 0 010 4.6M13 11.3c1.8.6 3 2.2 3 4.2"/></svg><span>Più di <span class="cnt" data-to="1500">1.500</span> professionisti supportati in <span class="cnt" data-to="3">3</span> anni</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.5C7.5 3.4 5.2 3 2.5 3v10.5c2.7 0 5 .4 6.5 1.5 1.500-1.100 3.800-1.500 6.500-1.500V3C12.800 3 10.500 3.400 9 4.500z"/><path d="M9 4.500V15"/></svg><span>Seminari agli Ordini degli Architetti di Milano e Brescia</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 3.5h13v9h-7l-3.500 3v-3h-2.500z"/><path d="M5.500 6.700h7M5.500 9.300h4.500"/></svg><span>Parli direttamente con chi progetta e produce</span></li>
+      <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6.500"/><path d="M9 5.200V9l2.600 1.700"/></svg><span>Il supporto tecnico risponde in tempo reale</span></li>
+    </ul>
+    <figure class="hero-photo"><img src="./img/f-1.jpg" alt="FOTO 1. Interno finito con chiusure filo muro: ante bianche, passaggio e soggiorno." width="1800" height="750"></figure>
+  </div>
+</section>
+
+<!-- IL PROBLEMA -->
+<section class="sec bone">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <p class="eyebrow">Il problema</p>
+        <h2>Il filo muro non perdona</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead"><b><em>Quando funziona, non si vede. Quando non funziona, è l'unica cosa che si vede.</em></b> <mark>Ma i problemi cominciano molto prima.</mark></p>
+        <div class="pair">
+          <div>
+            <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 12.5a6 6 0 0112 0"/><path d="M1.5 12.5h15v2h-15z"/><path d="M9 6.5V4"/></svg>In cantiere</h3>
+            <p>Si corre, <b>si lavora due volte</b>, si cercano stratagemmi. Si perdono tempo e ogni vantaggio che il filo muro dovrebbe dare, e nascono discussioni. Il filo muro diventa un problema da gestire, <em>non un aiuto</em>.</p>
+          </div>
+          <div>
+            <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 9s2.800-5 7.500-5 7.500 5 7.500 5-2.800 5-7.500 5-7.500-5-7.500-5z"/><circle cx="9" cy="9" r="2.200"/></svg>A lavori finiti</h3>
+            <p>Emergono limiti estetici e funzionali, subito o con il tempo: <b>crepe, linee sfalsate, chiusure che non si aprono come dovrebbero</b>. Il filo muro diventa il punto su cui si ferma lo sguardo, e che può aprire contestazioni e rifacimenti.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="full">
+      <div class="errs">
+        <figure class="err"><img src="./img/f-2.jpg" alt="FOTO 2. Crepe sull'angolo di una chiusura filo muro." loading="lazy"><span class="tag">✕ DA EVITARE</span></figure>
+        <figure class="err"><img src="./img/f-3.jpg" alt="FOTO 3. Fuga scura a vista lungo il bordo di una chiusura." loading="lazy"><span class="tag">✕ DA EVITARE</span></figure>
+        <figure class="err"><img src="./img/f-4.jpg" alt="FOTO 4. Botola a soffitto con il bordo che si apre." loading="lazy"><span class="tag">✕ DA EVITARE</span></figure>
+      </div>
+      <p class="cap">Errore reale di cantiere: cosa succede senza metodo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERCHÉ SUCCEDE -->
+<section class="sec bone">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <h2>Perché succede</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">Una posa a regola d'arte è la condizione di partenza di ogni lavoro ben fatto, e la diamo per scontata. Detto questo, le cause sono <b>quasi sempre tre</b>.</p>
+        <ol class="num">
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6.5"/><path d="M9 5.200V9l2.600 1.700"/></svg><p><b>Il momento sbagliato.</b> Se il filo muro si decide quando le pareti sono già chiuse, <b>non si progetta più: si adatta</b>. È la causa che porta a sbagliare di più.</p></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 2.500h8v8h-8z"/><circle cx="12" cy="12" r="3.500"/></svg><p><b>La chiusura sbagliata per quella situazione.</b> Se la tipologia non corrisponde a quello che c'è da chiudere, <em>per esempio una botola dove serviva un'anta tecnica</em>, si forza tutto il resto.</p></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="3.500" r="1.500"/><path d="M8.300 4.800L4.500 15.500M9.700 4.800l3.800 10.700M5.800 11.500c2 1.400 4.400 1.400 6.400 0"/></svg><p><b>Una chiusura senza tecnica.</b> Se dietro la chiusura non c'è ricerca, la posa diventa una lotta, e nemmeno il posatore più bravo può sempre rimediare.</p></li>
+        </ol>
+        <p>Succede spesso: <b>i limiti di una chiusura vengono trasmessi come conoscenza tecnica</b>. Si insegna come aggirarli, ci si organizza per gestirli, si accetta che facciano parte del lavoro. A un certo punto <em>nessuno si chiede più perché esistano</em>.</p>
+        <p>Le Chiusure A FiLO® nascono proprio per questo: <mark>con la chiusura giusta, nel momento giusto, quegli accorgimenti non servono.</mark></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NON BASTA UNA BUONA CHIUSURA -->
+<section class="sec bone">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <h2>Non basta una buona chiusura</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">Il filo muro è una tecnologia costruttiva: conta come è progettata la chiusura, <b>al millimetro</b>. <em>Ma da sola non basta.</em> <mark>Il filo muro funziona quando quattro cose stanno insieme:</mark></p>
+        <ol class="num">
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 2.500v13M5 5h6M7.500 9h7M5 13h4.500"/></svg><p><b>il momento giusto</b>, deciso con il progetto e con il cronoprogramma del cantiere;</p></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 6.500h14v5H2z"/><path d="M5 6.500v2M8 6.500v3M11 6.500v2M14 6.500v2"/></svg><p><b>la chiusura giusta</b> per quella situazione, <em>non la più vicina a catalogo</em>;</p></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 2.500h13v13h-13z"/><path d="M6 6h6v6H6z"/></svg><p><b>una chiusura progettata da chi la posa</b>, pensata per entrare nella costruzione senza lavorazioni in più;</p></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><circle cx="7" cy="6" r="2.500"/><path d="M2.500 15c0-2.500 2-4.500 4.500-4.500s4.500 2 4.500 4.500M12.500 7.500L14 9l2.500-3"/></svg><p><b>qualcuno che conosce il cantiere</b> e ti segue dalla prima idea all'ultima regolazione.</p></li>
+        </ol>
+        <p>Questo insieme ha un nome: <b>Metodo A FiLO</b>. Niente richiami, cantiere che non aspetta, nessuna scelta da fare da solo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUELLO CHE TROVI SOLO QUI: unica fascia scura -->
+<section class="sec dark">
+  <div class="wrap">
+    <div class="dark-head">
+      <h2>Quello che trovi solo qui</h2>
+      <p class="lead">Non serve dirlo: si vede nel dettaglio.</p>
+    </div>
+    <div class="tri">
+      <div>
+        <figure><img src="./img/f-5.jpg" alt="FOTO 5. Il sistema in posa: una mano avvita il telaio a soffitto." loading="lazy"></figure>
+        <div class="txt">
+          <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 2.500H8V8H2.500zM10 2.500h5.500V8H10zM2.500 10H8v5.500H2.500zM10 10h5.500v5.500H10z"/></svg>Progettate da chi le posava.</h3>
+          <p>Ogni Chiusura A FiLO nasce dalla stessa esperienza di cantiere e fa parte dello stesso sistema. Situazioni diverse, soluzioni diverse, ma una logica comune: chi posa sa già cosa aspettarsi, chi progetta sa già cosa può risolvere e che risultato otterrà. <b><em>Conosci una Chiusura A FiLO, e le conosci tutte.</em></b></p>
+        </div>
+      </div>
+      <div>
+        <figure><img style="object-position:50% 0" src="./img/f-6.jpg" alt="FOTO 6. Dettaglio del telaio in alluminio con il meccanismo di chiusura." loading="lazy"></figure>
+        <div class="txt">
+          <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2l5.500 2v4.500c0 3.500-2.300 6-5.500 7.500-3.200-1.500-5.500-4-5.500-7.500V4z"/><path d="M6.500 8.800l1.800 1.800 3.200-3.400"/></svg>Tecnologia nostra, dentro ogni chiusura.</h3>
+          <p><b>Soluzioni brevettate</b> e componenti progettati da noi, uno per uno: telai, ante, meccanismi, accessori. <em>Non assembliamo pezzi da catalogo</em>: ogni dettaglio è pensato per funzionare, durare e sparire esattamente come lo abbiamo voluto. E lavora così perché lavora insieme a tutti gli altri.</p>
+        </div>
+      </div>
+      <div>
+        <figure><img src="./img/f-7.jpg" alt="FOTO 7. Ante filo muro sotto un soffitto in legno: resta solo la linea." loading="lazy"></figure>
+        <div class="txt">
+          <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 12l.6-2.600L11 2l2 2-7.400 7.400z"/><path d="M2.500 15.500h13"/></svg>La linea di matita.</h3>
+          <p>Alla fine resta solo questa: <b>uno scuretto sottile e costante su tutto il perimetro</b>, che resta tale nel tempo, apertura dopo apertura.</p>
+        </div>
+      </div>
+    </div>
+    <p class="cta"><a class="btn light" href="./a-filo-lab/" data-go="Metodo, indirizzo /a-filo-lab/">Scopri come lavoriamo</a></p>
+  </div>
+</section>
+
+<!-- IL METODO A FILO -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split">
+      <div class="side long"><div class="side-in">
+        <p class="eyebrow">Il Metodo A FiLO</p>
+        <h2><em>Non è il progetto che si adatta al filo muro.</em> È il filo muro che si adatta al progetto.</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">E in cantiere non serve stravolgere nulla: serve <b>la sequenza giusta</b>.</p>
+        <p>Noi nasciamo dal secco, per il secco. Il filo muro nasce per la costruzione a secco e funziona al meglio con lei. Condividono la stessa logica: <b>si progetta prima, si coordina con precisione, non si improvvisa</b>. <mark>Le chiusure entrano mentre si costruisce</mark>: si fissano alla struttura, si chiudono con le lastre: impianti, spazi residui e passaggi sono risolti dentro la costruzione, <em>non dopo</em>.</p>
+        <p><b>Se puoi scegliere, scegli il secco.</b> Quando bisogna convivere con la muratura, il filo muro funziona anche lì.</p>
+        <figure class="ph r32"><div class="frame"><img src="./img/f-8.jpg" alt="FOTO 8. Cantiere a secco con il vano di un passaggio in costruzione." loading="lazy"></div><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="full cmp">
+      <div class="cmp-head"><span></span><span class="senza">Senza il Metodo A FiLO</span><span class="con">Con il Metodo A FiLO</span></div>
+      <div class="cmp-row">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.500l7 12.500H2z"/><path d="M9 7.500V11M9 13v.1"/></svg>Rischio</h3>
+        <p class="senza" data-l="Senza il Metodo A FiLO">Crepe, rifacimenti, contestazioni.</p>
+        <p class="con" data-l="Con il Metodo A FiLO">Chiusure progettate da chi le posava e scelte con te, sul tuo progetto e sul tuo cantiere: il rischio di sbagliare si riduce <b>prima ancora di produrre</b>.</p>
+      </div>
+      <div class="cmp-row">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M10 2L4 10h4.500L8 16l6-8H9.500z"/></svg>Velocità</h3>
+        <p class="senza" data-l="Senza il Metodo A FiLO">Un cantiere fermo ad aspettare la chiusura, o costretto a tornare indietro.</p>
+        <p class="con" data-l="Con il Metodo A FiLO">La chiusura arriva quando serve, né prima né dopo: la produzione segue il cronoprogramma, di norma in <b>5 giorni lavorativi</b> dalla conferma dell'ordine, salvo personalizzazioni particolari. In emergenza, FAST LINE su richiesta.</p>
+      </div>
+      <div class="cmp-row">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6.500"/><path d="M6 9.200l2.100 2.100L12 7"/></svg>Facilità</h3>
+        <p class="senza" data-l="Senza il Metodo A FiLO">Scegliere da solo, su un catalogo, e assumerti il rischio della scelta.</p>
+        <p class="con" data-l="Con il Metodo A FiLO"><b>Non scegli da solo:</b> leggiamo progetto, cronoprogramma e stato di fatto, progettiamo con te le chiusure su misura e ti seguiamo fino alla posa. Il supporto tecnico risponde in tempo reale e, se serve, Mentory porta un tecnico in cantiere.</p>
+      </div>
+      <div class="cmp-row">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M15 9a6 6 0 11-1.800-4.300"/><path d="M15 2.500v3h-3"/></svg>Se qualcosa va storto</h3>
+        <p class="senza" data-l="Senza il Metodo A FiLO">La discussione su chi ha sbagliato.</p>
+        <p class="con" data-l="Con il Metodo A FiLO">Se c'è un errore, <em>nostro o tuo</em>, il supporto valuta come ripristinare il risultato.</p>
+      </div>
+    </div>
+
+    </div>
+</section>
+<section class="band mint">
+  <div class="wrap">
+    <div class="pq"><p>Nel filo muro, <b>il supporto vale più del prodotto</b>.</p></div>
+    <p class="after-pq"><a class="btn" href="./contatti/" data-go="Contatti">Parla con un esperto del cantiere</a></p>
+  </div>
+</section>
+
+<!-- DAL SECCO, PER IL SECCO -->
+<section class="sec dark">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <p class="eyebrow">Dal secco, per il secco</p>
+        <h2>Il filo muro lo abbiamo posato, prima di produrlo</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">Gheorghe Cazan e la sua squadra hanno lavorato <b>25 anni</b> nel cantiere a secco, in negozi, uffici e appartamenti di alto livello. Il filo muro lo hanno posato, ne hanno vissuto i limiti e <b>hanno deciso di riprogettarlo</b>.</p>
+        <p>Oggi COMPASSiN® la guidano Gheorghe ed Ecaterina Cazan, architetto: <em>il cantiere e il progetto allo stesso tavolo</em>. Da questo incontro nasce il metodo, perché la chiusura giusta risolve molto, ma non tutto: serve anche decidere quando e come entra in cantiere.</p>
+        <p><mark>Per te significa parlare con qualcuno che conosce sia il tuo disegno sia il tuo cantiere.</mark></p>
+        <figure class="ph"><div class="frame" style="max-width:31rem"><img src="./img/f-9-1.jpg" alt="FOTO 9. Foto storica: un posatore avvita una parete curva in cartongesso con aperture vetrate." loading="lazy" style="aspect-ratio:4/5;object-fit:cover"></div><figcaption class="cap">Foto storica</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LA PROVA È IN CANTIERE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <p class="eyebrow">Lavori, riviste, testimonianze</p>
+        <h2>La prova è in cantiere</h2>
+      </div></div>
+      <div class="main"></div>
+    </div>
+
+    <div class="car" data-car>
+      <div class="car-head">
+        <div><h3>Lavori finiti</h3><p>Interni reali, a lavori conclusi: del filo muro resta solo una linea.</p></div>
+        <div class="car-ctl"><button type="button" data-prev aria-label="Foto precedente">←</button><output>01 / 06</output><button type="button" data-next aria-label="Foto successiva">→</button></div>
+      </div>
+      <div class="track" tabindex="0" aria-label="Lavori finiti">
+        <figure><button class="zoom" type="button"><img src="./img/f-10.jpg" alt="FOTO 10. Cucina con anta filo muro a tutta altezza." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+        <figure><button class="zoom" type="button"><img src="./img/f-11.jpg" alt="FOTO 11. Botola microforata a soffitto accanto a un taglio di luce." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+        <figure><button class="zoom" type="button"><img src="./img/f-12.jpg" alt="FOTO 12. Ante filo muro bianche in un ingresso con parquet a spina." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+        <figure><button class="zoom" type="button"><img src="./img/f-13.jpg" alt="FOTO 13. Porta filo muro verde su parete con carta da parati." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+        <figure><button class="zoom" type="button"><img src="./img/f-14-jpg.jpg" alt="FOTO 14. Zona pranzo con porta filo muro e cucina." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+        <figure><button class="zoom" type="button"><img src="./img/f-15.jpg" alt="FOTO 15. Bagno con soffitto e tagli di luce." loading="lazy"></button><figcaption class="cap">Foto reale di cantiere, non render.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="car riv" data-car>
+      <div class="car-head">
+        <div><h3>Pubblicati su</h3><p>Articoli tecnici scritti da noi e casi studio realizzati con architetti e imprese, pubblicati sulle riviste di settore.</p></div>
+        <div class="car-ctl"><button type="button" data-prev aria-label="Rivista precedente">←</button><output>01 / 13</output><button type="button" data-next aria-label="Rivista successiva">→</button></div>
+      </div>
+      <div class="track" tabindex="0" aria-label="Pubblicati su">
+        <figure><button class="zoom" type="button"><img src="./img/r-casa-clima-il-corridoio-come-infrastruttura.jpg" alt="Cartolina: Casa&amp;Clima, il corridoio come infrastruttura." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-modulo-post.jpg" alt="Cartolina: Modulo, la linea che non si vede." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-copertina-e-spread-di-il-bagno-348.25.jpg" alt="Cartolina: Il Bagno, copertina e pagina aperta." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-tutto-casa-architettura-e-porte-a-filo.jpg" alt="Cartolina: Tutto Casa, architettura e porte a filo." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-economia-magazine-sul-marmo-carrara.jpg" alt="Cartolina: Economia Magazine." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-casa-clima-su-alluminio-satinato.jpg" alt="Cartolina: Casa&amp;Clima, come integrare gli impianti." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-modulo-post1.jpg" alt="Cartolina: Modulo, ventilazione meccanica controllata." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-il-bagno-oggi-e-domani-su-alluminio-satinato.jpg" alt="Cartolina: Il Bagno oggi e domani." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-quattro-pagine-tuttocasa-su-marmo-carrara.jpg" alt="Cartolina: Tutto Casa, quattro pagine." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-microspazio-maxi-comfort-su-marmo.jpg" alt="Cartolina: Casa&amp;Clima, microspazio maxi comfort." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-doppia-pagina-su-alluminio-satinato.jpg" alt="Cartolina: doppia pagina, impianti da chiudere." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-riviste-di-architettura-su-marmo-carrara.jpg" alt="Cartolina: Casa&amp;Clima, VMC." loading="lazy"></button></figure>
+        <figure><button class="zoom" type="button"><img src="./img/r-servizio-editoriale-casa-clima-su-alluminio-satinato.jpg" alt="Cartolina: Casa&amp;Clima, servizio editoriale." loading="lazy"></button></figure>
+      </div>
+    </div>
+
+    <div class="car" data-car>
+      <div class="car-head">
+        <div><h3>Cosa dicono i professionisti del cantiere</h3></div>
+        <div class="car-ctl"><button type="button" data-prev aria-label="Testimonianza precedente">←</button><output>01 / 07</output><button type="button" data-next aria-label="Testimonianza successiva">→</button></div>
+      </div>
+      <div class="track quotes" tabindex="0" aria-label="Testimonianze">
+        <figure class="q"><blockquote>«Da quando collaboriamo con COMPASSiN® abbiamo avuto risultati che durano nel tempo e non siamo mai stati richiamati.»</blockquote><footer><img src="./img/t-nereo.jpg" alt="" loading="lazy"><div><b>Anthony Nereo</b><span>NE.MA Interni</span></div></footer></figure>
+        <figure class="q"><blockquote>«Ho raggiunto la soddisfazione personale di realizzare ciò che avevo in mente e la soddisfazione del cliente, che ha sempre apprezzato il risultato finale senza contestazioni.»</blockquote><footer><img src="./img/t-spinelli.jpg" alt="" loading="lazy"><div><b>Arch. Franco Spinelli</b><span>2af Architetti Associati</span></div></footer></figure>
+        <figure class="q"><blockquote>«Ora so sempre come preparare preventivi attendibili per i miei clienti.»</blockquote><footer><img src="./img/t-luca-moriggi.jpg" alt="" loading="lazy"><div><b>Luca Moriggi</b><span>LB Costruzioni</span></div></footer></figure>
+        <figure class="q"><blockquote>«Con l'aiuto del tecnico di riferimento non ci sono stati mai limiti alle possibilità compositive.»</blockquote><footer><img src="./img/t-de-lorenzo.jpg" alt="" loading="lazy"><div><b>Arch. Alberto De Lorenzo</b></div></footer></figure>
+        <figure class="q"><blockquote>«Il valore aggiunto di COMPASSiN è proprio il supporto tecnico. Non è solo un catalogo o una scheda tecnica.»</blockquote><footer><img src="./img/t-alessia-rubino.jpg" alt="" loading="lazy"><div><b>Arch. Alessia Rubino</b></div></footer></figure>
+        <figure class="q"><blockquote>«Ti puoi confrontare anche su WhatsApp: mandi una foto e arrivi velocemente a risolvere il problema.»</blockquote><footer><img src="./img/t-paolo-ravasio-record.jpg" alt="" loading="lazy"><div><b>Paolo Ravasio</b><span>Record sas</span></div></footer></figure>
+        <figure class="q"><blockquote>«È bello poter parlare con qualcuno che ne capisce, anziché mandare e-mail o compilare moduli. In questo modo non si sbaglia niente.»</blockquote><footer><img src="./img/t-pietro-damiani.jpg" alt="" loading="lazy"><div><b>Geom. Pietro Damiani</b><span>Res Contract srl</span></div></footer></figure>
+      </div>
+      <p class="proto" style="margin-top:40px">Segnaposto del prototipo · Spazio per recensioni estese, aggiornabile dal pannello. Nessun testo fornito.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LA GRAMMATICA DEL FILO MURO -->
+<section class="sec mint">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <p class="eyebrow">La grammatica del filo muro</p>
+        <h2>Non esiste la chiusura universale</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">Ogni chiusura nasce per una situazione precisa: un impianto da raggiungere per la manutenzione, un accesso da usare ogni giorno, uno spazio di risulta da trasformare in funzione. Per questo una parola generica, <em>«botola», «sportello», «porta»</em>, conduce quasi sempre a una scelta altrettanto generica.</p>
+        <p>Per togliere questa ambiguità abbiamo dato un ordine al filo muro: <b>la grammatica del filo muro</b>. Nomi, funzioni e categorie chiare, per capire cosa il filo muro può risolvere in ogni progetto e in ogni cantiere, e decidere con consapevolezza <em>invece che per approssimazione</em>.</p>
+      </div>
+    </div>
+    <div class="full">
+      <div class="cat">
+        <div>
+          <figure><img src="./img/f-16.jpg" alt="FOTO 16. Botola filo muro a soffitto accanto a un taglio di luce." loading="lazy"></figure>
+          <div class="txt"><h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 4h13v10h-13z"/><path d="M5 7h8M5 9h8M5 11h8"/></svg>Impianti.</h3><p>Non esiste «l'impianto»: esistono macchine e apparati diversi, a soffitto o a parete, grandi e piccoli, ognuno con le sue esigenze di accesso e manutenzione. Anche qui, <b>nessuna chiusura vale per tutti</b>.</p></div>
+        </div>
+        <div>
+          <figure><img src="./img/f-17.jpg" alt="FOTO 17. Ante filo muro a tutta altezza accanto a una cucina." loading="lazy"></figure>
+          <div class="txt"><h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 15.500v-4h4.300V7.200h4.300V2.900h4.400v12.600z"/></svg>Spazi residui.</h3><p>Nicchie, sottoscala, ripostigli in quota: <b>da spazi di risulta a spazi utili</b>, definiti mentre si costruisce.</p></div>
+        </div>
+        <div>
+          <figure><img src="./img/f-18.jpg" alt="FOTO 18. Porta filo muro rivestita con la stessa carta da parati della parete." loading="lazy"></figure>
+          <div class="txt"><h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.500 15.500v-13h9v13M2.500 15.500h13M11 9v.1"/></svg>Passaggi tra ambienti.</h3><p>Porte filo muro su misura, anche a tutta altezza. <em>Il passaggio resta, la cornice sparisce.</em></p></div>
+        </div>
+      </div>
+      <p class="cap">Foto reale di cantiere, non render.</p>
+      <p style="margin-top:40px"><a class="btn ghost" href="./cosa-risolvi/" data-go="Cosa risolvi">Scopri cosa puoi risolvere</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- HAI UN PROGETTO O UN CANTIERE -->
+<section class="sec green">
+  <div class="wrap">
+    <div class="split">
+      <div class="side"><div class="side-in">
+        <h2>Hai un progetto o un cantiere in cui vuoi il filo muro?</h2>
+      </div></div>
+      <div class="main">
+        <p class="lead">Non devi sapere già quale chiusura serve, e parli direttamente con chi progetta e produce. Prepara quello che hai, pianta, foto del cantiere, cronoprogramma, idee, e scegli da dove parti: un esperto del cantiere ti ricontatta per il primo confronto tecnico.</p>
+      </div>
+    </div>
+    <div class="full pq"><p>Scegliere la chiusura non è una questione di budget: è una questione di quanto ti costa sbagliare.</p></div>
+    <div class="who">
+      <div>
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 2.5h13v13h-13z"/><path d="M2.5 8h6M11.500 2.500v6M8.500 15.500v-4"/></svg>Se progetti</h3>
+        <p>Porti la pianta, le tue idee e la situazione del cantiere. Insieme capiamo cosa risolvere con il filo muro e quando deciderlo, progettiamo le chiusure su misura e ti aiutiamo a coordinare impresa e impiantisti. Il filo muro resta al servizio del tuo progetto, non il contrario.</p>
+        <a class="btn" href="./contatti/" data-go="Contatti, con «Progettista» già selezionato">Porta il tuo progetto</a>
+      </div>
+      <div>
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 4h13v10h-13z"/><path d="M2.5 7.300h13M2.500 10.700h13M7 4v3.300M11.500 7.300v3.400M7 10.700V14"/></svg>Se costruisci</h3>
+        <p>Ci mandi la richiesta e le informazioni sul cantiere. Facciamo la diagnosi, ti diciamo cosa serve e quando, e ti aiutiamo a realizzare quello che il progetto prevede e il committente si aspetta. Quando serve, un tecnico risponde: il cantiere non si ferma ad aspettare.</p>
+        <a class="btn" href="./contatti/" data-go="Contatti, con «Impresa / posatore» già selezionato">Porta il tuo cantiere</a>
+      </div>
+      <div>
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="3.500" r="1.500"/><circle cx="3.500" cy="14" r="1.500"/><circle cx="14.500" cy="14" r="1.500"/><path d="M9 5v4M9 9l-4.400 3.900M9 9l4.400 3.900"/></svg>Se coordini cantieri complessi</h3>
+        <p>Impianti, spazi residui e passaggi con un solo interlocutore, dal progetto alla chiusura lavori. Leggiamo con te il cronoprogramma e teniamo allineati progettista, impresa e impiantisti: meno fornitori da coordinare, meno passaggi in cui sbagliare.</p>
+        <a class="btn" href="./contatti/" data-go="Contatti, con «General contractor / studio tecnico» già selezionato">Parliamo del tuo cantiere</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISORSE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="split" style="margin-bottom:clamp(32px,4vw,56px)">
+      <div class="side"><div class="side-in"><h2>Risorse sul filo muro</h2></div></div>
+    </div>
+    <div class="res">
+      <a href="#" data-go="canale YouTube COMPASSiN, in una nuova scheda (indirizzo da inserire)">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M7.500 6.800l4 2.200-4 2.200z"/></svg>YouTube</h3>
+        <p>Video dal cantiere: come si progetta, si coordina e si posa il filo muro.</p>
+        <span class="go">Guarda i video</span>
+      </a>
+      <a href="https://ambientecontinuo.com" target="_blank" rel="noopener">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.500C7.500 3.400 5.200 3 2.500 3v10.500c2.700 0 5 .4 6.500 1.500 1.500-1.100 3.800-1.500 6.500-1.500V3c-2.700 0-5 .4-6.500 1.500z"/><path d="M9 4.500V15"/></svg>AMBiENTECONTiNUO</h3>
+        <p>Il magazine sulla tecnica e sull'estetica delle chiusure a filo. Metodo, cantieri reali e strumenti per chi progetta, costruisce e integra il filo muro: non per parlare di noi, per parlare di come si lavora bene.</p>
+        <span class="go">Scopri AMBiENTECONTiNUO</span>
+      </a>
+      <div class="off">
+        <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 15l.8-3.300L12.500 3 15 5.500l-8.700 8.700z"/><path d="M10.800 4.700l2.500 2.500"/></svg>Blog</h3>
+        <p>Articoli tecnici e risposte alle domande che arrivano ogni giorno da progetto e cantiere.</p>
+        <span class="soon">A breve disponibile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pq-wrap bone">
+  <div class="wrap"><div class="pq" style="border-top:0"><p>Veloci, su misura, niente intoppi.</p></div></div>
+</section>
+
+</main>
+
+<footer class="foot" style="border-top:0">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <p>Le Chiusure A FiLO® sono di COMPASSiN®: l'azienda che le progetta, le produce e le garantisce.</p>
+        <a class="tlink" href="https://compassin.it" target="_blank" rel="noopener">Conosci COMPASSiN</a>
+      </div>
+      <div>
+        <p class="claim">«Le chiusure a filo che prima non esistevano.»</p>
+      </div>
+    </div>
+    <div class="legal">
+      <p>COMPASSiN S.r.l. · Via del Tecchione 13, 20098 San Giuliano Milanese (MI) · C.F./P.IVA 09356150962 · <a href="#" data-go="Privacy">Privacy</a> · <a href="#" data-go="Cookie">Cookie</a> · <a href="#" data-go="Condizioni d’uso">Condizioni d’uso</a> · [icone social: segnaposto]</p>
+      <p>© 2026 Compass In srl – Tutti i diritti riservati</p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Immagine ingrandita"><button type="button" aria-label="Chiudi">✕</button><img alt=""></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var pad=function(n){return (n<10?'0':'')+n};
+  // menu mobile
+  var mb=document.getElementById('menu-btn'),menu=document.getElementById('menu');
+  mb.addEventListener('click',function(){var o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  // link interni: nel prototipo dicono dove portano
+  var toast=document.getElementById('toast'),tt;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('[data-go]');if(!a)return;
+    e.preventDefault();menu.classList.remove('open');mb.setAttribute('aria-expanded','false');
+    toast.textContent='Prototipo: questo link porta a '+a.getAttribute('data-go')+'.';
+    toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on')},2600);
+  });
+  // caroselli con frecce e contatore
+  document.querySelectorAll('[data-car]').forEach(function(c){
+    var t=c.querySelector('.track'),out=c.querySelector('output'),n=t.children.length;
+    var step=function(){var a=t.children[0],b=t.children[1];return b?b.offsetLeft-a.offsetLeft:a.offsetWidth};
+    var upd=function(){var max=t.scrollWidth-t.clientWidth;var i=max>0?Math.round(t.scrollLeft/max*(n-1)):0;out.textContent=pad(i+1)+' / '+pad(n)};
+    c.querySelector('[data-prev]').addEventListener('click',function(){t.scrollBy({left:-step(),behavior:'smooth'})});
+    c.querySelector('[data-next]').addEventListener('click',function(){t.scrollBy({left:step(),behavior:'smooth'})});
+    t.addEventListener('scroll',upd,{passive:true});upd();
+  });
+  // lightbox su foto e riviste
+  var lb=document.getElementById('lb'),li=lb.querySelector('img');
+  document.querySelectorAll('.zoom').forEach(function(b){b.addEventListener('click',function(){
+    var im=b.querySelector('img');li.src=im.src;li.alt=im.alt;
+    if(lb.showModal)lb.showModal();else lb.setAttribute('open','');
+  })});
+  var closeLb=function(){
+    if(!lb.open||lb.classList.contains('closing'))return;
+    if(rm){lb.close();return}
+    lb.classList.add('closing');setTimeout(function(){lb.classList.remove('closing');lb.close()},240);
+  };
+  lb.addEventListener('click',function(e){if(e.target!==li)closeLb()});
+  lb.addEventListener('cancel',function(e){e.preventDefault();closeLb()});
+  // barra di progresso lettura
+  var prog=document.getElementById('prog');
+  var onS=function(){var m=document.documentElement.scrollHeight-window.innerHeight;prog.style.transform='scaleX('+(m>0?Math.min(1,window.scrollY/m):0)+')'};
+  window.addEventListener('scroll',onS,{passive:true});window.addEventListener('resize',onS);onS();
+  // scroll-reveal: attivo solo con IntersectionObserver e senza reduced-motion
+  var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!rm&&'IntersectionObserver' in window){
+    var els=[].slice.call(document.querySelectorAll('.side-in,.main>*,.dark-head,.tri>div,.cat>div,.who>div,.res>*,.pq,.car,.errs>figure,.cmp,.band .after-pq'));
+    document.querySelectorAll('.tri,.cat,.who,.res,.errs').forEach(function(g){[].forEach.call(g.children,function(c,i){c.style.transitionDelay=(i*70)+'ms'})});
+    els.forEach(function(e){e.classList.add('rv')});
+    // foto: entrano solo quando sono caricate E in vista
+    window.__imgReady=true;
+    var ims=[].slice.call(document.querySelectorAll('.hero-photo img,.err img,.tri figure img,.frame img,.cat figure img,.zoom img'));
+    var go=function(im){if(im.__done||!(im.__vis&&im.__ld))return;im.__done=true;im.classList.add('is-loaded-visible');setTimeout(function(){im.style.transitionDelay=''},1500)};
+    var ld=function(im){im.__ld=true;go(im)};
+    var seen=function(im){if(im.__vis)return;im.__vis=true;go(im);setTimeout(function(){ld(im)},2500)};
+    ims.forEach(function(im){im.decoding='async';if(im.complete&&im.naturalWidth>0){im.__ld=true}else{im.addEventListener('load',function(){ld(im)});im.addEventListener('error',function(){ld(im)})}});
+    [].forEach.call(document.querySelectorAll('.errs,.tri,.cat,.track:not(.quotes)'),function(g){[].forEach.call(g.querySelectorAll('img'),function(im,i){if(i<3)im.style.transitionDelay=(i*90)+'ms'})});
+    var iio=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){seen(x.target);iio.unobserve(x.target)}})},{rootMargin:'0px 0px -4% 0px',threshold:.01});
+    ims.forEach(function(im){iio.observe(im)});
+    var hi=document.querySelector('.hero-photo img');if(hi)seen(hi);
+    var isweep=function(){var h=window.innerHeight,w=window.innerWidth;ims.forEach(function(im){if(im.__vis)return;var r=im.getBoundingClientRect();if(r.top<h&&r.bottom>0&&r.left<w&&r.right>0)seen(im)})};
+    window.addEventListener('scroll',isweep,{passive:true});
+    [].forEach.call(document.querySelectorAll('.track'),function(t){t.addEventListener('scroll',isweep,{passive:true})});
+    setTimeout(isweep,700);
+    [].forEach.call(document.querySelectorAll('mark'),function(e){e.classList.add('mk');els.push(e)});
+    var show=function(e){e.classList.add('in');if(e.matches('.who>div,.res>*'))setTimeout(function(){e.style.transitionDelay='';e.classList.remove('rv')},1100)};
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){show(x.target);io.unobserve(x.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:.01});
+    document.documentElement.classList.add('js-reveal');
+    els.forEach(function(e){io.observe(e)});
+    // rete di sicurezza: tutto ciò che è sopra il bordo basso dello schermo si mostra comunque
+    var sweep=function(){var h=window.innerHeight;els.forEach(function(e){if(!e.classList.contains('in')&&e.getBoundingClientRect().top<h)show(e)})};
+    window.addEventListener('scroll',sweep,{passive:true});setTimeout(sweep,600);
+    // micro-parallax, solo desktop
+    if(window.matchMedia('(min-width:1024px)').matches){
+      var pf=[].slice.call(document.querySelectorAll('.hero-photo,.frame'));
+      pf.forEach(function(f){f.classList.add('par')});
+      document.documentElement.classList.add('js-par');
+      var tick=false;
+      var par=function(){tick=false;var h=window.innerHeight;pf.forEach(function(f){var r=f.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var t=((r.top+r.height/2)-h/2)/(h/2+r.height/2);f.firstElementChild.style.translate='0 '+(Math.max(-1,Math.min(1,t))*-16).toFixed(1)+'px'})};
+      window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(par)}},{passive:true});par();
+    }
+    // count-up sui numeri della trustbar, una sola volta
+    var facts=document.querySelector('.facts');
+    if(facts){
+      var fmt=function(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
+      var cio=new IntersectionObserver(function(en){
+        if(!en[0].isIntersecting)return;cio.disconnect();
+        [].forEach.call(facts.querySelectorAll('.cnt'),function(c){
+          var fin=c.textContent,to=+c.getAttribute('data-to'),t0=null;
+          var st=function(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/800);c.textContent=k<1?fmt(Math.round(to*(1-Math.pow(1-k,3)))):fin;if(k<1)requestAnimationFrame(st)};
+          requestAnimationFrame(st);
+        });
+      },{threshold:.2});
+      cio.observe(facts);
+    }
+  }
+})();
+</script>
+</body>
+</html>
