@@ -12,7 +12,7 @@
 /* Layout: griglia svizzera a 12 colonne, sezioni dense in 4/8 con titolo sticky a sinistra,
    filetti 1px come unica struttura, una sola fascia scura. Look unico (palette Permaline), niente tema scuro. */
 :root{
-  --paper:#FAFAF7; --bone:#F4F3EE; --charcoal:#373A36; --graphite:#595B5E; --mist:#E6E6E3; --accent:#2F6B4A; --accent-light:#79B893; --accent-dark:#235238; --alert:#B3362B; --mint:#EEF3F0; --ease:cubic-bezier(.22,1,.36,1); --ease2:cubic-bezier(.16,1,.3,1); --wait:#ECEAE3; --wait-dark:#2C2F2B; --accent-wash:#E9EFEA; --on-green-line:rgba(250,250,247,.24); --accent-tint:rgba(47,107,74,.04);
+  --paper:#FAFAF7; --bone:#F4F3EE; --charcoal:#373A36; --graphite:#595B5E; --mist:#E6E6E3; --accent:#2F6B4A; --cta:#B84B24; --cta-dark:#963B1B; --accent-light:#79B893; --accent-dark:#235238; --alert:#B3362B; --mint:#EEF3F0; --ease:cubic-bezier(.22,1,.36,1); --ease2:cubic-bezier(.16,1,.3,1); --wait:#ECEAE3; --wait-dark:#2C2F2B; --accent-wash:#E9EFEA; --on-green-line:rgba(250,250,247,.24); --accent-tint:rgba(47,107,74,.04);
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --gap:32px; --head:64px; --measure:31rem;
   --sp-sec:clamp(72px,9vw,144px);
@@ -42,7 +42,7 @@ h3{font-size:1.25rem;line-height:1.25;letter-spacing:-.01em;font-weight:600}
 .hi .ic{margin-top:3px}
 .num .ic{margin-top:4px}
 .dark .ic{stroke:var(--accent-light)}
-mark{--mk:rgba(47,107,74,.11);background:linear-gradient(var(--mk),var(--mk)) no-repeat left/100% 100%;color:inherit;padding:1px 3px;border-radius:1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+mark{--mk:#F5E596;background:linear-gradient(var(--mk),var(--mk)) no-repeat left/100% 100%;color:#373A36;padding:1px 4px;border-radius:1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 p b{font-weight:600}
 .muted b{color:var(--charcoal)}
 .dark p b{color:var(--paper)}
@@ -54,8 +54,8 @@ p b{font-weight:600}
 .btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 24px;border:1px solid var(--charcoal);border-radius:2px;background:var(--charcoal);color:var(--paper);font:inherit;font-size:15px;font-weight:500;letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
 .btn::after{content:"→";font-weight:400;transition:transform .2s}
 .btn:hover::after{transform:translateX(3px)}
-.btn:not(.ghost):not(.light){background:var(--accent);border-color:var(--accent)}
-.btn:not(.ghost):not(.light):hover{background:var(--accent-dark);border-color:var(--accent-dark);color:var(--paper)}
+.btn:not(.ghost):not(.light){background:var(--cta);border-color:var(--cta)}
+.btn:not(.ghost):not(.light):hover{background:var(--cta-dark);border-color:var(--cta-dark);color:var(--paper)}
 .btn:hover{background:var(--accent);border-color:var(--accent);color:var(--paper)}
 .btn.ghost{background:transparent;color:var(--charcoal)}
 .btn.ghost::after,.btn.light::after{color:var(--accent)}
@@ -167,7 +167,7 @@ body{counter-reset:sec}
 .dark{background:var(--charcoal);color:var(--paper)}
 .dark .eyebrow,.dark .side-in::before{color:var(--accent-light)}
 .dark .cap{color:rgba(250,250,247,.74);border-color:var(--accent-light)}
-.dark mark{--mk:rgba(121,184,147,.18);color:var(--paper)}
+.dark mark{--mk:#F5E596;color:#373A36}
 .dark :focus-visible{outline-color:var(--accent-light)}
 .dark-head{display:grid;gap:16px;max-width:44rem;margin-bottom:clamp(40px,5vw,72px)}
 .dark-head p{color:var(--mist)}
@@ -276,7 +276,23 @@ body{counter-reset:sec}
 
 /* risorse */
 .res{display:grid;border-top:1px solid var(--charcoal)}
-.res>*{display:grid;grid-template-rows:auto 1fr auto;gap:14px;padding:28px 0 32px;text-decoration:none;border-bottom:1px solid var(--mist)}
+.res>*{display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;padding:28px 0 32px;text-decoration:none;border-bottom:1px solid var(--mist)}
+/* v10: mockup nelle schede Risorse, tutti 16:10 per tenere allineate le tre colonne */
+.rm{display:block;aspect-ratio:16/10;margin:0 0 10px;border:1px solid var(--mist);border-radius:4px;overflow:hidden;position:relative;background:var(--paper)}
+.rm-win{display:flex;flex-direction:column}
+.rm-win .bar{flex:0 0 22px;display:flex;align-items:center;gap:5px;padding:0 10px;border-bottom:1px solid var(--mist);background:var(--paper)}
+.rm-win .bar i{width:6px;height:6px;border-radius:50%;background:var(--mist)}
+.rm-win .shot{flex:1;min-height:0;overflow:hidden;background:#0f0f0f}
+.rm-win img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 2.4s var(--ease)}
+.res a:hover .rm-win img{transform:scale(1.06)}
+.rm-mag{background:var(--wait)}
+.rm-mag img{position:absolute;top:8%;left:50%;translate:-50% 0;display:block;height:84%;width:auto;box-shadow:0 1px 1px rgba(55,58,54,.12),0 5px 10px rgba(55,58,54,.12),0 18px 28px -10px rgba(55,58,54,.26);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.res a:hover .rm-mag img{transform:translateY(-5px);box-shadow:0 1px 1px rgba(55,58,54,.12),0 9px 16px rgba(55,58,54,.13),0 28px 36px -12px rgba(55,58,54,.28)}
+.rm-soon{background:var(--bone);display:grid;align-content:center;gap:9px;padding:0 14%}
+.rm-soon i{display:block;height:3px;background:var(--mist);border-radius:1px}
+.rm-soon i:first-child{height:9px;width:58%;background:#D9D8D3;margin-bottom:6px}
+.rm-soon i:nth-child(3){width:92%}.rm-soon i:nth-child(4){width:97%}.rm-soon i:nth-child(5){width:64%}
+.rm-soon .soon{position:absolute;left:14px;bottom:14px;background:var(--paper)}
 .res p{font-size:16px;color:var(--graphite)}
 .res .go{font-size:15px;font-weight:500;color:var(--charcoal)}
 .res a .go::after{content:" →";color:var(--accent)}
@@ -286,12 +302,64 @@ body{counter-reset:sec}
 .res .off .ic{stroke:var(--graphite)}
 @media(min-width:820px){
   .res{grid-template-columns:repeat(3,1fr)}
+  .rm{aspect-ratio:auto;height:clamp(170px,15.4vw,222px)}
   .res>*{padding:32px 32px 36px}
   .res>*:first-child{padding-left:0}
   .res>*:last-child{padding-right:0}
   .res>*+*{border-left:1px solid var(--mist)}
 }
 
+/* footer definitivo dell'hub: tre fasce su Charcoal */
+.ft{--f2:rgba(250,250,247,.74);--fl:rgba(250,250,247,.16);background:var(--charcoal);color:var(--paper);font-size:15px;line-height:1.55}
+.ft :focus-visible{outline-color:var(--accent-light)}
+.ft a{text-decoration:none;transition:color .2s}
+.ft a:hover{color:var(--accent-light)}
+.ft ul{list-style:none;margin:0;padding:0}
+.ft-a{display:grid;gap:28px;padding-block:clamp(48px,6vw,80px) clamp(36px,4vw,56px);border-bottom:1px solid var(--fl)}
+.ft-brand{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.ft-brand b{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.ft-brand span{font-size:12px;letter-spacing:.04em;color:var(--f2)}
+.ft-own{margin:0;max-width:34rem;color:var(--f2)}
+.ft-pay{margin:16px 0 0;font-size:clamp(1.25rem,1.1rem + .7vw,1.625rem);font-weight:300;line-height:1.3;letter-spacing:-.01em;max-width:30rem}
+.ft-ext{justify-self:start;align-self:start;font-weight:500;border-bottom:1px solid var(--accent-light);padding:10px 0 4px}
+.ft-ext span{color:var(--accent-light);margin-left:.2em;display:inline-block;transition:transform .2s}
+.ft-ext:hover span{transform:translate(2px,-2px)}
+.ft-b{display:grid;border-bottom:1px solid var(--fl)}
+.ft-b>*{padding-block:32px}
+.ft-b>*+*{border-top:1px solid var(--fl)}
+.ft h3{margin:0 0 18px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-light)}
+.ft-b li{padding:5px 0}
+.ft-b nav a{display:inline-block;padding:3px 0}
+.ft-tag{margin-left:8px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--f2);border:1px solid var(--fl);border-radius:2px;padding:2px 6px;vertical-align:1px}
+.ft-sub{margin:20px 0 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--f2)}
+.ft-soon{color:var(--f2)}
+.ft-ct li{display:flex;gap:12px;align-items:flex-start;padding:7px 0}
+.ft-ct .ic{stroke:var(--accent-light);margin-top:3px}
+.ft-ct a{display:inline-block;padding:3px 0}
+.ft-ct li{padding:4px 0}
+.ft-ct small{display:block;font-size:12px;color:var(--f2)}
+.ft-soc{display:flex;gap:8px;margin:18px 0 0 -11px}
+.ft-soc a{display:grid;place-items:center;width:44px;height:44px}
+.ft-soc svg{width:22px;height:22px;fill:none;stroke:var(--accent-light);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s,transform .2s}
+.ft-soc a:hover svg{stroke:var(--paper);transform:translateY(-1px)}
+.ft-c{display:grid;gap:14px;padding-block:28px 36px;font-size:12px;line-height:1.7;color:var(--f2)}
+.ft-c p{margin:0}
+.ft-co span{display:block}
+.ft-leg{display:flex;flex-wrap:wrap;gap:6px 24px}
+.ft-leg a{color:var(--paper);border-bottom:1px solid var(--fl);padding:6px 0 2px}
+@media(min-width:820px){
+  .ft-a{grid-template-columns:1fr auto;align-items:end}
+  .ft-ext{justify-self:end;align-self:end}
+  .ft-b{grid-template-columns:repeat(3,1fr)}
+  .ft-b>*{padding:40px 32px 44px}
+  .ft-b>*:first-child{padding-left:0}
+  .ft-b>*:last-child{padding-right:0}
+  .ft-b>*+*{border-top:0;border-left:1px solid var(--fl)}
+  .ft-c{grid-template-columns:1fr auto;align-items:center;gap:10px 32px}
+  .ft-co span{display:inline}
+  .ft-co span+span::before{content:" · "}
+  .ft-copy{grid-column:1/-1}
+}
 /* footer */
 .foot{border-top:1px solid var(--mist);padding-block:clamp(56px,6vw,88px) 40px;font-size:15px}
 .foot-top{display:grid;gap:28px var(--gap)}
@@ -719,20 +787,23 @@ dialog.lb.closing::backdrop{animation:lbFadeOut .25s ease forwards}
       <div class="side"><div class="side-in"><h2>Risorse sul filo muro</h2></div></div>
     </div>
     <div class="res">
-      <a href="#" data-go="canale YouTube COMPASSiN, in una nuova scheda (indirizzo da inserire)">
+      <a href="https://www.youtube.com/@AFILOdiCOMPASSiN" target="_blank" rel="noopener">
+        <span class="rm rm-win"><span class="bar" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot"><img src="./img/youtube-channel.jpg" alt="Il canale YouTube Chiusure A FiLO di COMPASSiN." width="1024" height="576" loading="lazy"></span></span>
         <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M7.500 6.800l4 2.200-4 2.200z"/></svg>YouTube</h3>
         <p>Video dal cantiere: come si progetta, si coordina e si posa il filo muro.</p>
         <span class="go">Guarda i video</span>
       </a>
       <a href="https://ambientecontinuo.com" target="_blank" rel="noopener">
+        <span class="rm rm-mag"><img src="./img/ambi16-cover.jpg" alt="La copertina di AMBiENTECONTiNUO 16." width="800" height="1161" loading="lazy"></span>
         <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 4.500C7.500 3.400 5.200 3 2.500 3v10.500c2.700 0 5 .4 6.500 1.500 1.500-1.100 3.800-1.500 6.500-1.500V3c-2.700 0-5 .4-6.500 1.500z"/><path d="M9 4.500V15"/></svg>AMBiENTECONTiNUO</h3>
         <p>Il magazine sulla tecnica e sull'estetica delle chiusure a filo. Metodo, cantieri reali e strumenti per chi progetta, costruisce e integra il filo muro: non per parlare di noi, per parlare di come si lavora bene.</p>
         <span class="go">Scopri AMBiENTECONTiNUO</span>
       </a>
       <div class="off">
+        <span class="rm rm-soon"><i></i><i></i><i></i><i></i><i></i><span class="soon">A breve disponibile</span></span>
         <h3 class="hi"><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 15l.8-3.300L12.500 3 15 5.500l-8.700 8.700z"/><path d="M10.800 4.700l2.500 2.500"/></svg>Blog</h3>
         <p>Articoli tecnici e risposte alle domande che arrivano ogni giorno da progetto e cantiere.</p>
-        <span class="soon">A breve disponibile</span>
+        <span></span>
       </div>
     </div>
   </div>
@@ -744,20 +815,59 @@ dialog.lb.closing::backdrop{animation:lbFadeOut .25s ease forwards}
 
 </main>
 
-<footer class="foot" style="border-top:0">
+<footer class="ft">
   <div class="wrap">
-    <div class="foot-top">
+    <div class="ft-a">
       <div>
-        <p>Le Chiusure A FiLO® sono di COMPASSiN®: l'azienda che le progetta, le produce e le garantisce.</p>
-        <a class="tlink" href="https://compassin.it" target="_blank" rel="noopener">Conosci COMPASSiN</a>
+        <p class="ft-brand"><b>Chiusure A FiLO®</b><span>di COMPASSiN®</span></p>
+        <p class="ft-own">Le Chiusure A FiLO® sono di COMPASSiN®: l'azienda che le progetta, le produce e le garantisce.</p>
+        <p class="ft-pay">Le chiusure a filo che prima non esistevano.</p>
+      </div>
+      <a class="ft-ext" href="https://www.compassin.it" target="_blank" rel="noopener">Conosci COMPASSiN <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="ft-b">
+      <nav aria-label="Esplora">
+        <h3>Esplora</h3>
+        <ul>
+          <li><a href="./cosa-risolvi/" data-go="Cosa risolvi">Cosa risolvi</a></li>
+          <li><a href="./a-filo-lab/" data-go="Metodo, indirizzo /a-filo-lab/">Metodo</a></li>
+          <li><a href="./casi-studio/" data-go="Casi studio">Casi studio</a></li>
+          <li><a href="./blog/" data-go="Blog">Blog</a> <span class="ft-tag">A breve</span></li>
+          <li><a href="./faq/" data-go="FAQ">FAQ</a></li>
+          <li><a href="https://ambientecontinuo.com" target="_blank" rel="noopener">AMBiENTECONTiNUO</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h3>Le marche</h3>
+        <ul>
+          <li>PERMALINE®</li>
+          <li>KAMAFILO®</li>
+          <li>SCALENO®</li>
+        </ul>
+        <p class="ft-sub">In arrivo</p>
+        <ul class="ft-soon">
+          <li>GIGAbotola®</li>
+          <li>ANTECHA®</li>
+          <li>ECA®</li>
+        </ul>
       </div>
       <div>
-        <p class="claim">«Le chiusure a filo che prima non esistevano.»</p>
+        <h3>Supporto tecnico</h3>
+        <ul class="ft-ct">
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.200 2.500h2.600l1.200 3.200-1.700 1.200a8.300 8.300 0 0 0 4.800 4.800l1.200-1.700 3.200 1.200v2.600a1.700 1.700 0 0 1-1.900 1.700A12.600 12.600 0 0 1 2.500 4.400a1.700 1.700 0 0 1 1.700-1.900z"/></svg><span><a href="tel:+393755718600">+39 375 571 8600</a> <small>Tel / WhatsApp</small></span></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.500 4h13v10h-13z"/><path d="M2.500 4.500l6.500 5 6.500-5"/></svg><a href="mailto:supporto@compassin.it">supporto@compassin.it</a></li>
+          <li><svg class="ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 16s5-4.600 5-8.500a5 5 0 0 0-10 0C4 11.400 9 16 9 16z"/><circle cx="9" cy="7.500" r="1.800"/></svg><span>Via del Tecchione 13, 20098 San Giuliano Milanese (MI)</span></li>
+        </ul>
+        <p class="ft-soc">
+          <a href="https://www.instagram.com/chiusure_a_filo_compassin/" target="_blank" rel="noopener" aria-label="Instagram, in una nuova scheda"><svg viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="4.500"/><circle cx="11" cy="11" r="3.700"/><path d="M15.600 6.400v.1"/></svg></a>
+          <a href="https://www.youtube.com/@AFILOdiCOMPASSiN" target="_blank" rel="noopener" aria-label="YouTube, in una nuova scheda"><svg viewBox="0 0 22 22" aria-hidden="true"><rect x="2" y="5" width="18" height="12" rx="3.500"/><path d="M9.300 8.300l4.400 2.700-4.400 2.700z"/></svg></a>
+        </p>
       </div>
     </div>
-    <div class="legal">
-      <p>COMPASSiN S.r.l. · Via del Tecchione 13, 20098 San Giuliano Milanese (MI) · C.F./P.IVA 09356150962 · <a href="#" data-go="Privacy">Privacy</a> · <a href="#" data-go="Cookie">Cookie</a> · <a href="#" data-go="Condizioni d’uso">Condizioni d’uso</a> · [icone social: segnaposto]</p>
-      <p>© 2026 Compass In srl – Tutti i diritti riservati</p>
+    <div class="ft-c">
+      <p class="ft-co"><span>COMPASSiN S.r.l.</span><span>Via del Tecchione 13, 20098 San Giuliano Milanese (MI)</span><span>C.F./P.IVA 09356150962</span></p>
+      <p class="ft-leg"><a href="#" data-go="Privacy">Privacy</a><a href="#" data-go="Cookie">Cookie</a><a href="#" data-go="Condizioni d'uso">Condizioni d'uso</a></p>
+      <p class="ft-copy">© 2026 Compass In srl – Tutti i diritti riservati</p>
     </div>
   </div>
 </footer>
